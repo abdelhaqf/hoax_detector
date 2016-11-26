@@ -5,7 +5,7 @@ $binEqual = [
 ];
 
 $binDiff = [
-    file_get_contents('https://pbs.twimg.com/media/CbzuycqW0AALnMi.jpg'),
+    file_get_contents('http://cdn0-a.production.images.static6.com/ixH_FBzB3dadO6tiUmc6I3Z4Jkw=/640x355/smart/filters:quality(75):strip_icc():format(jpeg)/liputan6-media-production/medias/1149891/original/014267100_1456136684-mobil_manor.jpg'),
 ];
 
 
@@ -40,8 +40,6 @@ function compAvgColor($c1, $c2, $tolerance = 4) {
 }
 
 
-foreach($perms as $perm) {
-    var_dump(compAvgColor(getAvgColor($binEqual[0]]), getAvgColor($binDiff[0]])));
-}
+    var_dump(compAvgColor(getAvgColor($binEqual[0]), getAvgColor($binDiff[0])));
 
 ?>
