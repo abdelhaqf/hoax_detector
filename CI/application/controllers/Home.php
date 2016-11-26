@@ -3,7 +3,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 class Home extends CI_Controller {
-
+	public function __construct()
+    {
+                parent::__construct();
+                $this->load->model('Kurio_Model');
+                $this->load->database();
+    }
 	/**
 	 * Index Page for this controller.
 	 *
@@ -93,6 +98,22 @@ class Home extends CI_Controller {
 		$array_topic = json_decode($json_string,true);
 
 		return $array_topic;
+	}
+	public function insert()
+	{
+		
+		$username = $this->input->post('usernameRegister');
+		$password = $this->input->post('passwordRegister');
+		$firstname = $this->input->post('firstnameRegister');
+		$lastname = $this->input->post('lastnameRegister');
+		$job = $this->input->post('jobRegister');
+
+		var_dump($username);
+		var_dump($password);
+		$this->Kurio_Model->insert($username,$password,$firstname,$lastname,$job);
+			
+		redirect(base_url());	
+	
 	}
 
 }
