@@ -40,8 +40,5 @@ function compAvgColor($c1, $c2, $tolerance = 4) {
 }
 
 
-foreach($perms as $perm) {
-    var_dump(compAvgColor(getAvgColor($binEqual[0]]), getAvgColor($binDiff[0]])));
-}
 
 ?>
