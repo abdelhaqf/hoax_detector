@@ -70,7 +70,7 @@
       		<!--mid column-->
       		<div class="col-md-3">
               <div class="panel" id="midCol">
-                <div class="panel-heading" style="background-color:#555;color:#eee;">New Stories</div> 
+                <div class="panel-heading" style="background-color:#555;color:#eee;">Top Stories</div> 
                 <div class="panel-body">
                   
                   <img class="img-responsive" src="//placehold.it/300/77CCDD/66BBCC">
