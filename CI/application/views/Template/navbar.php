@@ -2,7 +2,7 @@
 <nav class="navbar navbar-static">
    <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="http://www.bootply.com" target="ext"><b>Bootply</b></a>
+      <a class="navbar-brand" href="http://www.bootply.com" target="ext"><b>Kurio</b></a>
       <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="glyphicon glyphicon-chevron-down"></span>
       </a>
@@ -24,7 +24,6 @@
         </ul>
         <ul class="nav navbar-right navbar-nav">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
             <ul class="dropdown-menu" style="padding:12px;">
                 <form class="form-inline">
      				<button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button><input type="text" class="form-control pull-left" placeholder="Search">
@@ -34,10 +33,8 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Login</a></li>
-              <li><a href="#">Profile</a></li>
-              <li class="divider"></li>
-              <li><a href="#">About</a></li>
+              <li><a href="#">Logout</a></li>
+              
              </ul>
           </li>
         </ul>

@@ -24,6 +24,11 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('session');
+	}
 	public function index()
 	{
 
@@ -60,6 +65,10 @@ class Home extends CI_Controller {
 			$arrTopImg[$i] = $value["thumbnail"]["url"];
 			$i++;
 		}
+
+		if(empty($this->session->flashdata('feedId'))){
+			$this->getDetails("127");
+		}
 		$data['TopicName'] = $arrTopicName;
 		$data['TopicId'] = $arrTopicId;
 		
@@ -73,8 +82,33 @@ class Home extends CI_Controller {
 		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
 		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
 		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
-
+		
 		$this->load->view('Page/home',$data);
+	}
+	public function getDetails($id)
+	{
+		//AMBIL DARI FEED TOPIC ID
+
+		$link = "https://hack.kurio.co.id/v1/feed/topic:".$id.""; 
+		$array_details  = $this->curl($link);
+		
+		$i=0;
+		foreach($array_details['data'] as $values)
+		{
+			$arrFeedId[$i] = $values['id'];
+			$arrFeedTitle[$i] = $values['title'];
+			$arrFeedExcerpt[$i] = $values['excerpt'];
+			$arrFeedUrl[$i] = $values['url'];
+			$arrFeedImg[$i] = $values['thumbnail']['url'];
+			$i++;
+		}
+		$this->session->set_flashdata('feedId',$arrFeedId);
+		$this->session->set_flashdata('feedTitle',$arrFeedTitle);
+		$this->session->set_flashdata('feedExcerpt',$arrFeedExcerpt);
+		$this->session->set_flashdata('feedUrl',$arrFeedUrl);
+		$this->session->set_flashdata('feedImg',$arrFeedImg);
+
+		redirect(base_url());
 	} 
 	public function curl($link)
 	{
@@ -95,9 +129,9 @@ class Home extends CI_Controller {
 		];
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		$json_string = curl_exec ($curl);
-		$array_topic = json_decode($json_string,true);
-
-		return $array_topic;
+		$array = json_decode($json_string,true);
+		curl_close($curl);
+		return $array;
 	}
 	public function insert()
 	{
