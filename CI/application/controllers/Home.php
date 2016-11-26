@@ -9,6 +9,7 @@ class Home extends CI_Controller {
                 $this->load->model('Kurio_Model');
                 $this->load->database();
 				$this->load->library('session');
+				
     }
 	/**
 	 * Index Page for this controller.
@@ -59,6 +60,7 @@ class Home extends CI_Controller {
 			$arrTopTitle[$i] = $value["title"];
 			$arrTopExcerpt[$i] = $value["excerpt"];
 			$arrTopImg[$i] = $value["thumbnail"]["url"];
+			$arrTopVerif[$i]=$this->resultGoogle($value["title"]);
 			$i++;
 		}
 
@@ -145,6 +147,23 @@ class Home extends CI_Controller {
 		redirect(base_url());	
 	
 	}
+	function resultGoogle($url){
+	
+	require_once('simple_html_dom.php');
+	$url_en = str_replace(' ','+',$url);
+
+	$html = file_get_html('https://www.google.com/search?q=allintitle:'.$url_en.'&filter=0');
+
+
+	// Find all images
+	$result = $html->find('div[id="resultStats"]',0);
+	$res = intval(filter_var($result->innertext,FILTER_SANITIZE_NUMBER_INT));
+	if($res>=3)
+		return True;
+	else
+		return False;
+	}
+
 
 }
 
