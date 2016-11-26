@@ -8,6 +8,7 @@ class Home extends CI_Controller {
                 parent::__construct();
                 $this->load->model('Kurio_Model');
                 $this->load->database();
+				$this->load->library('session');
     }
 	/**
 	 * Index Page for this controller.
@@ -24,11 +25,6 @@ class Home extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->library('session');
-	}
 	public function index()
 	{
 
