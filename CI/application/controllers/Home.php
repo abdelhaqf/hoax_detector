@@ -1,7 +1,8 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php 
 
-class Welcome extends CI_Controller {
+defined('BASEPATH') OR exit('No direct script access allowed');
+header('Access-Control-Allow-Origin: *');
+class Home extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,6 +21,12 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
+		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
+		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
+		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
+		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
+
+		$this->load->view('Page/home',$data);
 	}
 }
