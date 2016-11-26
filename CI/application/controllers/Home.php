@@ -60,7 +60,6 @@ class Home extends CI_Controller {
 			$arrTopTitle[$i] = $value["title"];
 			$arrTopExcerpt[$i] = $value["excerpt"];
 			$arrTopImg[$i] = $value["thumbnail"]["url"];
-			$arrTopVerif[$i]=$this->resultGoogle($value["title"]);
 			$i++;
 		}
 
@@ -74,7 +73,7 @@ class Home extends CI_Controller {
 		$data['topTopicTitle']=$arrTopTitle;
 		$data['topTopicExcerpt']=$arrTopExcerpt;
 		$data['topTopicImg']=$arrTopImg;
-		
+
 		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
 		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
 		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
@@ -131,6 +130,30 @@ class Home extends CI_Controller {
 		curl_close($curl);
 		return $array;
 	}
+	public function article($id){
+		$i=0;
+		$link = "https://hack.kurio.co.id/v1/article/".$id; 
+		$array_top  = $this->curl($link);
+
+		$arrTitle[$i] = $array_top["title"];
+		$arrText[$i] = $array_top["content"][1]["text"];
+		
+	
+
+		$data['title'] = $arrTitle[0];
+		$data['text'] = $arrText[0];
+		$verif="unVerified";
+		if($this->resultGoogle(substr($arrTitle[0],0,70) ))$verif="Verified";
+		$data['verif'] = $verif;
+
+		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
+		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
+		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
+		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
+		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
+		
+		$this->load->view('Page/article',$data);
+	}
 	public function insert()
 	{
 		
@@ -158,6 +181,8 @@ class Home extends CI_Controller {
 	// Find all images
 	$result = $html->find('div[id="resultStats"]',0);
 	$res = intval(filter_var($result->innertext,FILTER_SANITIZE_NUMBER_INT));
+	echo $res;
+	die;
 	if($res>=3)
 		return True;
 	else
