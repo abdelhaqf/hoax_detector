@@ -3,3 +3,8 @@ contoh pencarian
 	https://www.googleapis.com/customsearch/v1?key=AIzaSyAU-hVfuUrej-S73-fm5Roan8gqebU6Lm8&cx=017576662512468239146:omuauf_lfve&q=lectures
 kurio access token
 	"access_token": "So4vu1NSiufIwzxvdTEviuebzeTSwoc3F2x8GSMY",
+
+
+http://www.bintang.com/lifestyle/read/2442798/bukan-main-cat-mobil-f1-rio-haryanto-mirip-metromini
+
+http://otosia.com/berita/rio-haryanto-pakai-metro-mini.html
