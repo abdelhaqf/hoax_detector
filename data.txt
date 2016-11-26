@@ -1,3 +1,5 @@
 google api key = AIzaSyAU-hVfuUrej-S73-fm5Roan8gqebU6Lm8
+contoh pencarian
+	https://www.googleapis.com/customsearch/v1?key=AIzaSyAU-hVfuUrej-S73-fm5Roan8gqebU6Lm8&cx=017576662512468239146:omuauf_lfve&q=lectures
 kurio access token
 	"access_token": "So4vu1NSiufIwzxvdTEviuebzeTSwoc3F2x8GSMY",
