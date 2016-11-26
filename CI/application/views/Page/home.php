@@ -17,15 +17,16 @@
               <div class="panel-body">
       			      <ul class="nav nav-stacked">
                     <?php
-                      for($i = 0 ; $i<count($TopicName); $i++)
+                      for($i = 0 ; $i<count($TopicName) , $i<count($TopicId); $i++)
                       {
                         echo'
-                          <li><a href="'.base_url().'index.php/Home/getDetails/">'.$TopicName[$i].'</a></li>
+                          <li><a href="'.base_url().'index.php/Home/getDetails/'.$TopicId[$i].'">'.$TopicName[$i].'</a></li>
                         ';
                       }
                     ?>
                     
 				          </ul>
+                  <!--
                 <div class="accordion" id="accordion2">
                     <div class="accordion-group">
                         <div class="accordion-heading">
@@ -51,10 +52,10 @@
                                 </div>
                             </div>
                         </div>
-               	</div><!--/acc-->
-                  
+               	</div><!--/acc
+                  -->
                   <hr>
-
+                  
                 <div class="col col-span-12">
                   <i class="icon-2x icon-facebook"></i>&nbsp;
                   <i class="icon-2x icon-twitter"></i>&nbsp;
