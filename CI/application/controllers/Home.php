@@ -21,11 +21,6 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
-		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
-		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
-		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
-		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
 
 		//AMBIL DARI EXPLORE 
 		$curl = curl_init();
@@ -66,7 +61,13 @@ class Home extends CI_Controller {
 		$data['TopicName'] = $arrTopicName;
 		$data['TopicId'] = $arrTopicId;
 		
+		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
+		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
+		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
+		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
+		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
 
 		$this->load->view('Page/home',$data);
 	}
+	
 }

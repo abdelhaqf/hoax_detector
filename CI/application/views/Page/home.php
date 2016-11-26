@@ -12,17 +12,20 @@
 	<div class="no-gutter row">
       		<!-- left side column -->
   			<div class="col-md-2">
-              	<div class="panel panel-default" id="sidebar">
-                <div class="panel-heading" style="background-color:#888;color:#fff;">Sidebar</div> 
-                <div class="panel-body">
-      			<ul class="nav nav-stacked">
-                    <li><a href="#">Link</a></li>
-          			<li><a href="#">Link</a></li>
-                  	<li><a href="#">Link</a></li>
-          			<li><a href="#">Link</a></li>
-                  	<li><a href="#">Link</a></li>
-          			<li><a href="#">Link</a></li>
-				</ul>
+          <div class="panel panel-default" id="sidebar">
+              <div class="panel-heading" style="background-color:#888;color:#fff;">Sidebar</div> 
+              <div class="panel-body">
+      			      <ul class="nav nav-stacked">
+                    <?php
+                      for($i = 0 ; $i<count($TopicName); $i++)
+                      {
+                        echo'
+                          <li><a href="'.base_url().'index.php/Home/getDetails/">'.$TopicName[$i].'</a></li>
+                        ';
+                      }
+                    ?>
+                    
+				          </ul>
                 <div class="accordion" id="accordion2">
                     <div class="accordion-group">
                         <div class="accordion-heading">
