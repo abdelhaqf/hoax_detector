@@ -1,6 +1,6 @@
 <?php
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,"https://hack.kurio.co.id/v1/explore");
+curl_setopt($ch, CURLOPT_URL,"https://hack.kurio.co.id/v1/feed/top_stories");
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -19,10 +19,16 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $server_output = curl_exec ($ch);
 $json = json_decode($server_output, true);
-print_r($json);
+//print_r($json);
 //echo json_decode($json, JSON_PRETTY_PRINT);
 
 curl_close ($ch);
-
-print  $server_output ;
+// /print_r($json);
+//print  $server_output ;
+print_r($json['data']);
+foreach ($json as $k=>$v) {
+    //echo $topping, "\n";
+    //print_r($x);
+    echo $k;
+}
 ?>

@@ -70,8 +70,7 @@ class Home extends CI_Controller {
 		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
 
 		$this->load->view('Page/home',$data);
-	}
-<<<<<<< HEAD
+	} 
 	public function curl($link)
 	{
 		$curl = curl_init();
@@ -96,11 +95,5 @@ class Home extends CI_Controller {
 		return $array_topic;
 	}
 
-=======
-	public function getDtails($id){
-	
-	}
-	
->>>>>>> origin/master
 }
 
