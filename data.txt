@@ -1,0 +1,3 @@
+google api key = AIzaSyAU-hVfuUrej-S73-fm5Roan8gqebU6Lm8
+kurio access token
+	"access_token": "So4vu1NSiufIwzxvdTEviuebzeTSwoc3F2x8GSMY",
