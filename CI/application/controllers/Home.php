@@ -22,9 +22,59 @@ class Home extends CI_Controller {
 	public function index()
 	{
 
-		//AMBIL DARI EXPLORE 
+		//AMBIL DARI EXPLORE
+		$link = "https://hack.kurio.co.id/v1/explore"; 
+		$array_topic  = $this->curl($link);
+		$i = 0;
+
+		//PARSING DARI JSON YANG UDAH DIDECODE
+		foreach($array_topic as $data)
+		{
+			foreach($data as $values)
+			{
+				foreach($values as $value)
+				{
+					$arrTopicName[$i] = $value['name'];
+					$arrTopicId[$i] = $value['id'];
+					$i++;
+				}
+			}
+		}
+		
+		$i=0;
+		$link = "https://hack.kurio.co.id/v1/feed/top_stories"; 
+		$array_top  = $this->curl($link);
+
+		//PARSING DARI JSON YANG UDAH DIDECODE
+		//var_dump($array_top);
+		foreach($array_top["data"] as $value)
+		{
+			$arrTopId[$i] = $value["id"];
+			$arrTopTitle[$i] = $value["title"];
+			$arrTopExcerpt[$i] = $value["excerpt"];
+			$arrTopImg[$i] = $value["thumbnail"]["url"];
+			$i++;
+		}
+		$data['TopicName'] = $arrTopicName;
+		$data['TopicId'] = $arrTopicId;
+		
+		$data['topTopicId']=$arrTopId;
+		$data['topTopicTitle']=$arrTopTitle;
+		$data['topTopicExcerpt']=$arrTopExcerpt;
+		$data['topTopicImg']=$arrTopImg;
+		
+		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
+		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
+		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
+		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
+		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
+
+		$this->load->view('Page/home',$data);
+	}
+	public function curl($link)
+	{
 		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL,"https://hack.kurio.co.id/v1/explore");
+		curl_setopt($curl, CURLOPT_URL,$link);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -42,32 +92,8 @@ class Home extends CI_Controller {
 		$json_string = curl_exec ($curl);
 		$array_topic = json_decode($json_string,true);
 
-		$i = 0;
-
-		//PARSING DARI JSON YANG UDAH DIDECODE
-		foreach($array_topic as $data)
-		{
-			foreach($data as $values)
-			{
-				foreach($values as $value)
-				{
-					$arrTopicName[$i] = $value['name'];
-					$arrTopicId[$i] = $value['id'];
-					$i++;
-				}
-			}
-		}
-		
-		$data['TopicName'] = $arrTopicName;
-		$data['TopicId'] = $arrTopicId;
-		
-		$data['style'] = $this->load->view('Include/style',NULL,TRUE);
-		$data['script'] = $this->load->view('Include/script',NULL,TRUE);
-		$data['navbar'] = $this->load->view('Template/navbar',NULL,TRUE);
-		$data['footer'] = $this->load->view('Template/footer',NULL,TRUE);
-		$data['header'] = $this->load->view('Template/header',NULL,TRUE);
-
-		$this->load->view('Page/home',$data);
+		return $array_topic;
 	}
-	
+
 }
+
