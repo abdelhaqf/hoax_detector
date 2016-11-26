@@ -9,18 +9,8 @@
     </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">  
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Channels</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Sub-link</a></li>
-              <li><a href="#">Sub-link</a></li>
-              <li><a href="#">Sub-link</a></li>
-              <li><a href="#">Sub-link</a></li>
-              
-            </ul>
-          </li>
+          <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+          
         </ul>
         <ul class="nav navbar-right navbar-nav">
           <li class="dropdown">
@@ -31,11 +21,19 @@
              </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Logout</a></li>
+            <?php
+              if($this->session->userdata('logged_in'))
+              {
+                echo'
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="'.base_url().'index.php/Home/logout">Logout</a></li>
               
-             </ul>
+                  </ul>
+                ';
+              }
+            ?>
+            
           </li>
         </ul>
       </div>

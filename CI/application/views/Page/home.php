@@ -32,19 +32,19 @@
                         <br>
                         <div class="tab-content">
                             <div class="tab-pane active" id="Login">
-                                <form role="form" class="form-horizontal">
+                                <form method="post" action="<?php echo base_url();?>index.php/Home/login" role="form" class="form-horizontal">
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">
                                         Username</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="usernameLogin" placeholder="Username" />
+                                        <input type="text" class="form-control" name="user" placeholder="Username" required/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1" class="col-sm-2 control-label">
                                         Password</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="passwordLogin" placeholder="Email" />
+                                        <input type="password" class="form-control" name="pass" placeholder="Email" required/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -123,6 +123,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
+                      <!--
                         <div class="row text-center sign-with">
                             <div class="col-md-12">
                                 <h3>
@@ -134,7 +135,7 @@
                                         Google</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -218,13 +219,26 @@
                         echo '
                         <div class="media">
                           <a class="pull-left" href="'.base_url().'index.php/Home/getDetails/'.$topTopicId[$i].'">
-                            <img class="media-object" width=80px src='.$topTopicImg[$i].'>
+                            <img class="media-object" width=100px src='.$topTopicImg[$i].'>
                           </a>
+
                           <div class="media-body">
                             <h5 class="media-heading"><a href="/tagged/modal" target="ext" class="pull-right"></i></a> <a href="'.base_url().'index.php/Home/article/'.$topTopicId[$i].'"><strong>'.$topTopicTitle[$i].'</strong></a></h5>
-                            <small>'.$topTopicExcerpt[$i].'</small><br>
+                            <small>'.$topTopicExcerpt[$i].'</small><br><br>';
+                            $sess = $this->session->userdata('logged_in');
+                            if($this->session->userdata('logged_in') && !in_array($topTopicId[$i], $sess['votes']))
+                            {
+                              echo'
+                              <div id="'.$topTopicId[$i].'">
+                                <a href=""><button class="btn btn-success vote" value="Y"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button></a>
+                                <a href=""><button class="btn btn-danger pull-right vote" value="N"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button></a>
+                              </div>';
+                            }
+                          echo'
+                                <hr>
                           </div>
-                        </div>';
+                        </div>
+                          ';
                       }
                     ?>
 
@@ -251,11 +265,21 @@
                         
                         <hr>
                       
-                        <h2>'.$this->session->flashdata('feedTitle')[$i].'</h2>
+                        <h2><a href="'.base_url().'index.php/Home/article/'.$this->session->flashdata('feedId')[$i].'">'.$this->session->flashdata('feedTitle')[$i].'</a></h2>
                         <p>'.$this->session->flashdata('feedExcerpt')[$i].'</p>
                         <h5><a href="'.$this->session->flashdata('feedUrl')[$i].'">'.$this->session->flashdata('feedUrl')[$i].'</a></h5>
+                        ';
+                        $sess = $this->session->userdata('logged_in');
+
+                        if($this->session->userdata('logged_in') && !in_array($this->session->flashdata('feedId')[$i], $sess['votes'])){
+                        echo '
+                        <div id="'.$this->session->flashdata('feedId')[$i].'">
+                          <a href=""><button class="btn btn-success vote" value="Y"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></button></a>
+                          <a href=""><button class="btn btn-danger pull-right vote" value="N"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button></a>
+                        </div>
                         <hr>
                       ';
+                      }
                     }
                   ?>
                    
@@ -269,8 +293,20 @@
   echo $footer;
   echo $script;
 ?>
-<script type="text/javascript">
-  $('#myModal').modal('show');
+  <script>
+    $(document).ready(function(){
+      $(".vote").click(function(event){
+          event.preventDefault();
+          alert('Vote anda berhasil dimasukan');
+          var id = $(this).closest('div').attr('id');
+          var voteType = $(this).attr('value');
+
+          $.get("http://[::1]/hoax_detector/CI/index.php/Home/vote/"+id+"/"+voteType,function(data){
+
+          });
+          $(this).closest('div').remove();
+      });
+    })
 </script>
 	</body>
 

@@ -19,20 +19,36 @@ class Kurio_Model extends CI_Model
 				
 				
 	}
-	public function edit($id,$title,$year,$director,$image_name)
+	
+	public function login($username,$password)
 	{
-		
-		$this->load->database();
+		//$this->db->select('*');
+		$this->db->where('username',$username);
+		$this->db->where('password',$password);
+		$query = $this->db->get('users');
+		return $query;
+	}
+	public function checkvote($username,$article)
+	{
+		//$this->db->select('*');
+		$this->db->where('username',$username);
+		$this->db->where('article_id',$article);
+		$query = $this->db->get('votes');
+		return $query;
+	}
+	public function vote($username,$article,$type){
 		$data = array(
-				'title' => $title,
-				'year' => $year,
-				'director' => $director,
-				'image' => $image_name
+				'username' => $username,
+				'article_id' => $article,
+				'vote_type' => $type,
 				);
-		$this->db->where('id',$id);
-		$this->db->update('movie_list',$data);
-				
-				
+		$this->db->insert('votes',$data);
+	}
+	public function getVote($username){
+		$this->db->select('article_id');
+		$this->db->where('username',$username);
+		$query = $this->db->get('votes');
+		return $query;
 	}
 }
 

@@ -182,11 +182,63 @@ class Home extends CI_Controller {
 	$result = $html->find('div[id="resultStats"]',0);
 	$res = intval(filter_var($result->innertext,FILTER_SANITIZE_NUMBER_INT));
 	echo $res;
-	die;
+	//die;
 	if($res>=3)
 		return True;
 	else
 		return False;
+	}
+	public function login()
+	{
+		$user = $this->input->post('user');
+		$pass = $this->input->post('pass');
+
+		$query = $this->Kurio_Model->login($user,$pass);
+		$rows = $query->row();
+
+		$query2 = $this->Kurio_Model->getvote($rows->username);
+		$rows2 = $query2->result();
+		$help=array();
+		$idx=0;
+		foreach($rows2 as $r){
+			$help[$idx++]=intval($r->article_id);
+		} 
+
+		$data = array(
+			'username' => $rows->username,
+			'verified_status' => $rows->verified_status,
+			'points' => $rows->points,
+			'job' => $rows->job,
+			'votes'=>$help,
+		);
+		$this->session->set_userdata('logged_in',$data);
+
+		redirect(base_url());
+	}
+	public function logout()
+	{
+		$this->session->unset_userdata('logged_in');
+		$this->session->sess_destroy();
+		redirect(base_url());
+	}
+	public function vote(){
+		$sess = $this->session->userdata('logged_in');
+		$x =  $this->uri->segment(3);
+  		$voteType =  $this->uri->segment(4);
+
+		$query = $this->Kurio_Model->checkvote($sess["username"],$x);
+		if($query->num_rows()==0){
+			$this->Kurio_Model->vote($sess["username"],$x,$voteType);
+
+			$temp=$this->session->userdata('logged_in');
+			array_push($temp['votes'], $x);
+			$this->session->set_userdata('logged_in',$temp);
+		}
+		redirect(base_url());
+	}
+	public function test()
+	{
+		echo'aa';
 	}
 
 
