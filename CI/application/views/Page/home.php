@@ -5,7 +5,7 @@
 	<body>
 		<?php 
 			echo $navbar;
-			echo $header;
+		//  	echo $header;
 		?>
 		<!-- Begin Body -->
     <!-- modal login -->
@@ -221,8 +221,9 @@
                           <a class="pull-left" href="'.base_url().'index.php/Home/getDetails/'.$topTopicId[$i].'">
                             <img class="media-object" width=100px src='.$topTopicImg[$i].'>
                           </a>
-
+                          <p>'.$topTopicCompare[$i].'</p>
                           <div class="media-body">
+                          
                             <h5 class="media-heading"><a href="/tagged/modal" target="ext" class="pull-right"></i></a> <a href="'.base_url().'index.php/Home/article/'.$topTopicId[$i].'"><strong>'.$topTopicTitle[$i].'</strong></a></h5>
                             <small>'.$topTopicExcerpt[$i].'</small><br><br>';
                             $sess = $this->session->userdata('logged_in');
@@ -234,7 +235,7 @@
                                 <a href=""><button class="btn btn-danger pull-right vote" value="N"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button></a>
                               </div>';
                             }
-                          echo'
+                          echo'<p id="abiTop'.$topTopicId[$i].'">'.$topPersentage[$i].'</p>
                                 <hr>
                           </div>
                         </div>
@@ -267,6 +268,7 @@
                       
                         <h2><a href="'.base_url().'index.php/Home/article/'.$this->session->flashdata('feedId')[$i].'">'.$this->session->flashdata('feedTitle')[$i].'</a></h2>
                         <p>'.$this->session->flashdata('feedExcerpt')[$i].'</p>
+                        <p id="abi'.$this->session->flashdata('feedId')[$i].'">'.$this->session->flashdata('feedPersentage')[$i].'</p>
                         <h5><a href="'.$this->session->flashdata('feedUrl')[$i].'">'.$this->session->flashdata('feedUrl')[$i].'</a></h5>
                         ';
                         $sess = $this->session->userdata('logged_in');
@@ -297,14 +299,16 @@
     $(document).ready(function(){
       $(".vote").click(function(event){
           event.preventDefault();
-          alert('Vote anda berhasil dimasukan');
           var id = $(this).closest('div').attr('id');
           var voteType = $(this).attr('value');
 
           $.get("http://[::1]/hoax_detector/CI/index.php/Home/vote/"+id+"/"+voteType,function(data){
-
+              alert('Vote anda berhasil dimasukan');
+              $("#abi"+id).html(data);
+              $("#abiTop"+id).html(data);
           });
           $(this).closest('div').remove();
+          
       });
     })
 </script>

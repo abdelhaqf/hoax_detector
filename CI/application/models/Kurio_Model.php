@@ -50,6 +50,20 @@ class Kurio_Model extends CI_Model
 		$query = $this->db->get('votes');
 		return $query;
 	}
+	public function selectHoax($id){
+		$query = $this->db->query("SELECT 1 FROM votes WHERE article_id='$id' AND vote_type='N'");
+		return $query;
+	}
+	public function selectNoHoax($id){
+		$query = $this->db->query("SELECT 1 FROM votes WHERE article_id='$id' AND vote_type='Y'");
+		return $query;
+	}
+	public function selectMaxPoints()
+	{
+		$query = $this->db->query("SELECT * FROM users ORDER BY points DESC LIMIT 3");
+		return $query;
+
+	}
 }
 
 

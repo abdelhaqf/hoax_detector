@@ -9,7 +9,17 @@
     </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">  
-          <li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+          <?php
+              if(!$this->session->userdata('logged_in'))
+              {
+                echo'<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>';
+              }
+              else
+              {
+                $sess_array = $this->session->userdata('logged_in');
+                echo'<li><a href="#">Welcome '.$sess_array['username'].'</a></li>';
+              }
+          ?>
           
         </ul>
         <ul class="nav navbar-right navbar-nav">

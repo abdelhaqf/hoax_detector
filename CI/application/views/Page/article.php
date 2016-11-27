@@ -5,7 +5,7 @@
 	<body>
 		<?php 
 			echo $navbar;
-			echo $header;
+		//	echo $header;
 		?>
 		<!-- Begin Body -->
     <!-- modal login -->
